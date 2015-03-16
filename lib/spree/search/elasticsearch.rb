@@ -36,7 +36,7 @@ module Spree
             sorting: sorting
           ).to_hash
         )
-        search_result.limit(per_page).page(page).records
+        search_result.records
       end
 
       protected
@@ -45,7 +45,7 @@ module Spree
       def prepare(params)
         @query = params[:keywords]
         @sorting = params[:sorting]
-        @taxons = params[:taxon] unless params[:taxons].nil?
+        @taxons = params[:taxon].blank? ? nil : Spree::Taxon.find(params[:taxon]).id
         @browse_mode = params[:browse_mode] unless params[:browse_mode].nil?
         if params[:search] && params[:search][:price]
           # price

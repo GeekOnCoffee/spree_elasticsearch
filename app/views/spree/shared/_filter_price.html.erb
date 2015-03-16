@@ -7,7 +7,7 @@
     </div>
     <div class="slider-input">
       <input type="text" id="price-min" name="search[price][min]" value"<%= facet["min"] %>">
-      <span>tot</span>
+      <span>to</span>
       <input type="text" id="price-max" name="search[price][max]" value"<%= facet["max"] %>">
     </div>
   </div>
@@ -48,14 +48,14 @@
         to: max_param,
         type: 'double',
         step: 1,
-        prefix: "€",
+        prefix: "<%= ::Money.new(1, Spree::Config[:currency]).symbol %>",
         prettify: false,
         hasGrid: false,
-        onLoad: function(obj) { 
+        onLoad: function(obj) {
           $("#price-min").val(obj.fromNumber);
           $("#price-max").val(obj.toNumber);
         },
-        onChange: function(obj) { 
+        onChange: function(obj) {
           $("#price-min").val(obj.fromNumber);
           $("#price-max").val(obj.toNumber);
         }

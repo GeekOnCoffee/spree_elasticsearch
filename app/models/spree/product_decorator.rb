@@ -2,6 +2,10 @@ module Spree
   Product.class_eval do
     include Elasticsearch::Model
 
+    def self.search(*args)
+      __elasticsearch__.search(*args)
+    end
+
     index_name Spree::ElasticsearchSettings.index
     document_type 'spree_product'
 
