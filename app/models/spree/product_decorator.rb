@@ -55,6 +55,10 @@ module Spree
       attribute :browse_mode, Boolean
       attribute :sorting, String
 
+      def query_fields
+        ['name^5','description','sku']
+      end
+
       # When browse_mode is enabled, the taxon filter is placed at top level. This causes the results to be limited, but facetting is done on the complete dataset.
       # When browse_mode is disabled, the taxon filter is placed inside the filtered query. This causes the facets to be limited to the resulting set.
 
@@ -82,7 +86,7 @@ module Spree
       def to_hash
         q = { match_all: {} }
         unless query.blank? # nil or empty
-          q = { query_string: { query: query, fields: ['name^5','description','sku'], default_operator: 'AND', use_dis_max: true } }
+          q = { query_string: { query: query, fields: query_fields, default_operator: 'AND', use_dis_max: true } }
         end
         query = q
 
