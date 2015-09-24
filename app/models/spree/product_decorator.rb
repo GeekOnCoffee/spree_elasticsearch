@@ -25,6 +25,7 @@ module Spree
     def as_indexed_json(options={})
       result = as_json({
         methods: [:price, :sku],
+        size: Spree::Config.products_per_page,
         only: [:available_on, :description, :name],
         include: {
           variants: {
